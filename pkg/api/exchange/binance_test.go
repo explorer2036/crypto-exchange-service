@@ -7,7 +7,7 @@ import (
 	"crypto-exchange-service/pkg/config"
 )
 
-func TestOrder(t *testing.T) {
+func TestBinanceCreateOrder(t *testing.T) {
 	wrapper := NewBinanceWrapper(&config.Config{
 		APIKey:    "yvoN0Vqp7blpEAzkZaL97XnINFg5C4t2X4TXZ7PnmxTkIKmnHo2EPwix3gI4NdBc",
 		SecretKey: "QLSktDLG7nb9BdqKglCrHoNgHRpHaJzwPvVX7QMIrithQDz6ErjBgKvBblLBkBTa",
