@@ -1,0 +1,14 @@
+@address=localhost:9000
+
+
+### order
+POST http://{{address}}/order
+Content-Type: application/json
+
+{
+	"exchange": "binance",
+    "marketId": "LTCUSDT",
+	"side": "buy",
+	"quantity": 0.5,
+	"price": 20
+}
