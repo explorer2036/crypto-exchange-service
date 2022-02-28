@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package apis;
+
+option go_package = "../apis/order";
+
+service OrderService {
+    rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse) {};
+}
+
+message CreateOrderRequest {
+    string exchange = 1;
+    string marketId = 2;
+    string side = 3;
+    float quantity = 4;
+    int64 price = 5;
+}
+
+message CreateOrderResponse {
+    int64 orderId = 1;
+    int64 timestamp = 2;
+}

@@ -9,7 +9,8 @@ import (
 
 // Config structure for server
 type Config struct {
-	Address      string `json:"address"`
+	HTTPAddr     string `json:"http_address"`
+	GRPCAddr     string `json:"grpc_address"`
 	ReadTimeout  int    `json:"read_timeout"`
 	WriteTimeout int    `json:"write_timeout"`
 	APIKey       string `json:"api_key"`
@@ -19,15 +20,19 @@ type Config struct {
 // New returns the server config
 func New() *Config {
 	settings := Config{
-		Address:      ":9000",
+		HTTPAddr:     ":9000",
+		GRPCAddr:     ":9001",
 		ReadTimeout:  5,
 		WriteTimeout: 10,
-		APIKey:       "yvoN0Vqp7blpEAzkZaL97XnINFg5C4t2X4TXZ7PnmxTkIKmnHo2EPwix3gI4NdBc",
-		SecretKey:    "QLSktDLG7nb9BdqKglCrHoNgHRpHaJzwPvVX7QMIrithQDz6ErjBgKvBblLBkBTa",
+		APIKey:       "az6j45YMUmZbkTGJoez2pGUvHEAJeF21BwcAoQBUSecF5RYBTiyeqDjDPbZmE04y",
+		SecretKey:    "ZANmzkuuVCpemKJGnQ2Oi15NSeVDKPEG7tp8MvVlPY2kGJBZbHhxp8fGUdOJkl1u",
 	}
 
-	if address := os.Getenv("SERVER_ADDR"); address != "" {
-		settings.Address = address
+	if addr := os.Getenv("HTTP_ADDR"); addr != "" {
+		settings.HTTPAddr = addr
+	}
+	if addr := os.Getenv("GRPC_ADDR"); addr != "" {
+		settings.GRPCAddr = addr
 	}
 	if read := os.Getenv("READ_TIMEOUT"); read != "" {
 		timeout, err := strconv.Atoi(read)
