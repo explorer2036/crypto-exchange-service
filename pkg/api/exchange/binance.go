@@ -2,12 +2,10 @@ package exchange
 
 import (
 	"context"
-	"encoding/json"
 
 	"crypto-exchange-service/pkg/config"
 
 	"github.com/adshao/go-binance/v2"
-	"github.com/sirupsen/logrus"
 )
 
 // BinanceWrapper represents the wrapper for the Binance exchange.
@@ -41,17 +39,26 @@ func (s *BinanceWrapper) CreateOrder(ctx context.Context, symbol string, side st
 	return res.OrderID, res.TransactTime, nil
 }
 
-func (s *BinanceWrapper) GetOrder(ctx context.Context, symbol string, id int64) error {
+func (s *BinanceWrapper) GetOrder(ctx context.Context, symbol string, id int64) (*binance.Order, error) {
 	order, err := s.client.NewGetOrderService().
 		Symbol(symbol).
 		OrderID(id).
 		Do(ctx)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	d, _ := json.Marshal(order)
-	logrus.Infof("order: %s", d)
-	return nil
+	return order, nil
+}
+
+func (s *BinanceWrapper) CancelOrder(ctx context.Context, symbol string, id int64) (*binance.CancelOrderResponse, error) {
+	res, err := s.client.NewCancelOrderService().
+		Symbol(symbol).
+		OrderID(id).
+		Do(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
 }
 
 func (s *BinanceWrapper) GetSymbols(ctx context.Context) ([]binance.Symbol, error) {

@@ -12,3 +12,21 @@ Content-Type: application/json
 	"quantity": 0.15,
 	"price": 125
 }
+
+### query order
+GET  http://{{address}}/order
+Content-Type: application/json
+
+{
+	"id": 2750377045,
+    "marketId": "LTCUSDT"
+}
+
+### cancel order
+DELETE   http://{{address}}/order
+Content-Type: application/json
+
+{
+	"id": 2750377045,
+    "marketId": "LTCUSDT"
+}

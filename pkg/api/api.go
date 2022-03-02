@@ -34,6 +34,8 @@ func NewServer(settings *config.Config) *Server {
 
 	router := fasthttprouter.New()
 	router.POST("/order", s.Order)
+	router.GET("/order", s.GetOrder)
+	router.DELETE("/order", s.CancelOrder)
 
 	s.binanceWrapper = exchange.NewBinanceWrapper(settings)
 

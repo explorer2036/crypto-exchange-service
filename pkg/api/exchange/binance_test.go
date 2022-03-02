@@ -23,18 +23,22 @@ func TestBinanceCreateOrder(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Create order: %v", err)
 			}
-			if err := wrapper.GetOrder(context.Background(), symbol.Symbol, id); err != nil {
+			order, err := wrapper.GetOrder(context.Background(), symbol.Symbol, id)
+			if err != nil {
 				t.Fatalf("Query order %d: %v", id, err)
 			}
+			t.Logf("order %d: %v", id, order)
 		}
 		if symbol.Symbol == "LTCUSDT" {
 			id, _, err := wrapper.CreateOrder(context.Background(), symbol.Symbol, "BUY", "0.2", "125")
 			if err != nil {
 				t.Fatalf("Create order: %v", err)
 			}
-			if err := wrapper.GetOrder(context.Background(), symbol.Symbol, id); err != nil {
+			order, err := wrapper.GetOrder(context.Background(), symbol.Symbol, id)
+			if err != nil {
 				t.Fatalf("Query order %d: %v", id, err)
 			}
+			t.Logf("order %d: %v", id, order)
 		}
 	}
 }
