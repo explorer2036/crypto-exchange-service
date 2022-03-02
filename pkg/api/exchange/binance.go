@@ -17,7 +17,9 @@ type BinanceWrapper struct {
 
 // NewBinanceWrapper creates a generic wrapper of the binance API.
 func NewBinanceWrapper(settings *config.Config) *BinanceWrapper {
-	binance.UseTestnet = true
+	if settings.TestNetwork == "yes" {
+		binance.UseTestnet = true
+	}
 	client := binance.NewClient(settings.APIKey, settings.SecretKey)
 	return &BinanceWrapper{
 		client: client,

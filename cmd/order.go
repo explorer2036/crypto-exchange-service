@@ -44,7 +44,7 @@ var OrderCmd = &cobra.Command{
 			Exchange: "binance",
 			MarketId: "LTCUSDT",
 			Side:     "buy",
-			Quantity: 0.2,
+			Quantity: 0.15,
 			Price:    125,
 		}
 		response, err := client.CreateOrder(context.Background(), request)

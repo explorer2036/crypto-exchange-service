@@ -2,7 +2,6 @@ package config
 
 import (
 	"os"
-	"strconv"
 
 	"github.com/sirupsen/logrus"
 )
@@ -15,6 +14,7 @@ type Config struct {
 	WriteTimeout int    `json:"write_timeout"`
 	APIKey       string `json:"api_key"`
 	SecretKey    string `json:"secret_key"`
+	TestNetwork  string `json:"test_network"`
 }
 
 // New returns the server config
@@ -24,8 +24,9 @@ func New() *Config {
 		GRPCAddr:     ":9001",
 		ReadTimeout:  5,
 		WriteTimeout: 10,
-		APIKey:       "az6j45YMUmZbkTGJoez2pGUvHEAJeF21BwcAoQBUSecF5RYBTiyeqDjDPbZmE04y",
-		SecretKey:    "ZANmzkuuVCpemKJGnQ2Oi15NSeVDKPEG7tp8MvVlPY2kGJBZbHhxp8fGUdOJkl1u",
+		APIKey:       "pYD6avUt6U4Q8KRzH6NayZ3GjjtakWUPXVyoRnqiiAmyrvxcr1wUbWs0ZCbok2Hg",
+		SecretKey:    "0VMAEaLSbpevMaaJVwA58kuftzvrpx71i7XEncVnBy4KaqshInfWHNhvO6ch4K9d",
+		TestNetwork:  "yes",
 	}
 
 	if addr := os.Getenv("HTTP_ADDR"); addr != "" {
@@ -34,17 +35,14 @@ func New() *Config {
 	if addr := os.Getenv("GRPC_ADDR"); addr != "" {
 		settings.GRPCAddr = addr
 	}
-	if read := os.Getenv("READ_TIMEOUT"); read != "" {
-		timeout, err := strconv.Atoi(read)
-		if err == nil {
-			settings.ReadTimeout = timeout
-		}
+	if key := os.Getenv("API_KEY"); key != "" {
+		settings.APIKey = key
 	}
-	if write := os.Getenv("WRITE_TIMEOUT"); write != "" {
-		timeout, err := strconv.Atoi(write)
-		if err == nil {
-			settings.WriteTimeout = timeout
-		}
+	if key := os.Getenv("SECRET_KEY"); key != "" {
+		settings.SecretKey = key
+	}
+	if network := os.Getenv("TEST_NETWORK"); network != "" {
+		settings.TestNetwork = network
 	}
 
 	logrus.Infof("server config: %v", settings)
